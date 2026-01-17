@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "gen:api": "node scripts/gen-api.mjs",
+    "gen:undo": "node scripts/undo-gen-api.mjs"
   },
   "dependencies": {
     "next": "16.1.3",
