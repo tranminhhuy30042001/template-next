@@ -1,0 +1,31 @@
+# app
+mkdir src/app
+ni src/app/layout.tsx
+ni src/app/page.tsx
+
+mkdir src/app/api/user
+ni src/app/api/user/route.ts
+
+# components
+mkdir src/components
+mkdir src/components/ui
+ni src/components/ui/Spinner.tsx
+ni src/components/ui/ErrorBox.tsx
+
+mkdir src/components/user
+ni src/components/user/UserCard.tsx
+ni src/components/user/ProfileWithPosts.tsx
+
+# hooks
+mkdir src/hooks
+ni src/hooks/useResource.ts
+ni src/hooks/useUser.ts
+ni src/hooks/usePosts.ts
+
+# lib
+mkdir src/lib
+ni src/lib/apiFetch.ts
+
+# types
+mkdir src/types
+ni src/types/index.ts
