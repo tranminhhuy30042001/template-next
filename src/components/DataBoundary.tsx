@@ -3,12 +3,11 @@ import { DefaultLoading } from './ui/DefaultLoading'
 import { DefaultError } from './ui/DefaultError'
 
 type Props<T> = {
-  data: T | null
+  data?: T
   loading?: boolean
-  error?: Error | null
+  error?: Error
   children: (data: T) => ReactNode
 
-  // optional override
   loadingFallback?: ReactNode
   errorFallback?: (error: Error) => ReactNode
 }
@@ -16,7 +15,7 @@ type Props<T> = {
 export function DataBoundary<T>({
   data,
   loading = false,
-  error = null,
+  error,
   children,
   loadingFallback,
   errorFallback,
@@ -24,7 +23,7 @@ export function DataBoundary<T>({
   if (loading) return <>{loadingFallback ?? <DefaultLoading />}</>
   if (error)
     return <>{errorFallback ? errorFallback(error) : <DefaultError error={error} />}</>
-  if (!data) return null
+  if (data === undefined) return null
 
   return <>{children(data)}</>
 }

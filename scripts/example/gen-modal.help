@@ -1,0 +1,45 @@
+'use client'
+
+import { useState } from 'react'
+import { DataBoundary } from '@/components/DataBoundary'
+import { useUserWithPosts } from '@/hooks/useUserWithPosts'
+import { UserDetailModal } from '@/components/modals/UserDetailModal'
+
+export function ProfileWithPosts() {
+  const resource = useUserWithPosts()
+  const [open, setOpen] = useState(false)
+
+  return (
+    <DataBoundary {...resource}>
+      {({ user, posts }) => (
+        <>
+          <h1
+            className="cursor-pointer underline"
+            onClick={() => setOpen(true)}
+          >
+            {user.name}
+          </h1>
+
+          <ul>
+            {posts.map(post => (
+              <li key={post.id}>{post.title}</li>
+            ))}
+          </ul>
+
+          <UserDetailModal
+            open={open}
+            onClose={() => setOpen(false)}
+            resource={useUser(user.id)}
+          >
+            {user => (
+              <div>
+                <h2>{user.name}</h2>
+                <p>{user.email}</p>
+              </div>
+            )}
+          </UserDetailModal>
+        </>
+      )}
+    </DataBoundary>
+  )
+}

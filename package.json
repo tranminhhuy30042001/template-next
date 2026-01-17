@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "gen:api": "node scripts/gen-api.mjs",
-    "gen:undo": "node scripts/undo-gen-api.mjs"
+    "gen:undo": "node scripts/undo-gen-api.mjs",
+    "gen:optimistic": "node scripts/gen-optimistic.mjs",
+    "gen:modal": "node scripts/gen-modal.mjs"
   },
   "dependencies": {
     "next": "16.1.3",

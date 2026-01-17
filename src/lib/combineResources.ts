@@ -1,30 +1,35 @@
-export type Resource<T> = {
-  data: T | null
-  loading: boolean
-  error: Error | null
-}
+import { ResourceState } from "@/types/resource"
+
+export type BaseResource<T> = ResourceState<T>
 
 export function combineResources<T extends Record<string, any>>(
-  resources: { [K in keyof T]: Resource<T[K]> }
-): Resource<T> {
-  const loading = Object.values(resources).some(r => r.loading)
-  const error = Object.values(resources).find(r => r.error)?.error ?? null
+  resources: {
+    [K in keyof T]: BaseResource<T[K]>
+  }
+) {
+  const entries = Object.entries(resources) as [
+    keyof T,
+    ResourceState<T[keyof T]>
+  ][]
+
+  const loading = entries.some(([, r]) => r.loading)
+  const error = entries.find(([, r]) => r.error)?.[1].error
 
   if (loading || error) {
     return {
-      data: null,
+      data: undefined,
       loading,
       error,
     }
   }
 
   const data = Object.fromEntries(
-    Object.entries(resources).map(([key, r]) => [key, r.data])
+    entries.map(([key, r]) => [key, r.data])
   ) as T
 
   return {
     data,
     loading: false,
-    error: null,
+    error: undefined,
   }
 }
