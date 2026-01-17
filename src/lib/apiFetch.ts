@@ -1,10 +1,23 @@
+// src/lib/apiFetch.ts
 export async function apiFetch<T>(
-  input: string,
+  input: RequestInfo,
   init?: RequestInit
 ): Promise<T> {
   const res = await fetch(input, init)
+
   if (!res.ok) {
-    throw new Error(`Request failed: ${res.status}`)
+    let message = `Request failed: ${res.status}`
+
+    try {
+      const data = await res.json()
+      if (data?.message) message = data.message
+    } catch {}
+
+    const error = new Error(message)
+    ;(error as any).status = res.status
+
+    throw error
   }
+
   return res.json()
 }

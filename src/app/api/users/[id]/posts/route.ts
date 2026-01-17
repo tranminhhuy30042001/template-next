@@ -9,3 +9,10 @@ export async function GET(
     { id: 'p2', title: 'Second post' },
   ])
 }
+// src/app/api/users/[id]/route.ts
+// export async function GET() {
+//   return new Response(
+//     JSON.stringify({ message: 'User not found 1' }),
+//     { status: 200 }
+//   )
+// }

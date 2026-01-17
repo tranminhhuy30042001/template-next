@@ -6,9 +6,10 @@ export function useResource<T>(
   fetcher: (signal: AbortSignal) => Promise<T>,
   deps: any[]
 ) {
-  const [data, setData] = useState<T | null>(null)
+
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
+  const [data, setData] = useState<T | undefined>(undefined)
+  const [error, setError] = useState<Error | undefined>(undefined)
   const controllerRef = useRef<AbortController | null>(null)
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export function useResource<T>(
     controllerRef.current = controller
 
     setLoading(true)
-    setError(null)
+    setError(undefined)
 
     fetcher(controller.signal)
       .then(res => {
