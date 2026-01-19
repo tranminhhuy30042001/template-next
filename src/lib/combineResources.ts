@@ -1,7 +1,12 @@
 import { ResourceState } from "@/types/resource"
 
 export type BaseResource<T> = ResourceState<T>
+//Chỉ cần 1 resource đang loading → cả màn hình loading
+//Tìm resource đầu tiên có lỗi
 
+// Lấy error của nó
+
+// Nếu không có lỗi → undefined
 export function combineResources<T extends Record<string, any>>(
   resources: {
     [K in keyof T]: BaseResource<T[K]>

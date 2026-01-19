@@ -1,7 +1,11 @@
+// feat: thêm DataBoundary để xử lý loading, error và data thống nhất
+
+// - Gom logic loading / error / success vào một component
+// - Giảm lặp code ở các màn hình gọi API
+// - Cho phép custom UI khi loading hoặc error
 import { ReactNode } from 'react'
 import { DefaultLoading } from './ui/DefaultLoading'
 import { DefaultError } from './ui/DefaultError'
-
 type Props<T> = {
   data?: T
   loading?: boolean
