@@ -9,13 +9,15 @@
     "lint": "eslint",
     "gen:api": "node scripts/gen-api.mjs",
     "gen:undo": "node scripts/undo-gen-api.mjs",
-    "gen:optimistic": "node scripts/gen-optimistic.mjs",
-    "gen:modal": "node scripts/gen-modal.mjs"
+    "gen:form": "node scripts/gen-form.mjs"
   },
   "dependencies": {
+    "antd": "^6.2.0",
+    "inquirer": "^13.2.0",
     "next": "16.1.3",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "react-hook-form": "^7.71.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

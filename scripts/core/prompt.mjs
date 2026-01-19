@@ -1,27 +1,47 @@
-import readline from 'readline'
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
-
-const ask = q => new Promise(res => rl.question(q, res))
+import inquirer from 'inquirer'
 
 export async function askConfig() {
-  const name = await ask('API name (e.g. settings): ')
-  const shape = await ask('Data shape (object / array): ')
-  const needCombine = await ask('Need combine hook? (yes / no): ')
+  const answers = await inquirer.prompt([
+    {
+      type: 'input',
+      name: 'name',
+      message: 'API name (e.g. settings):',
+      validate: v => !!v || 'Name is required',
+    },
+    {
+      type: 'list',
+      name: 'shape',
+      message: 'Data shape:',
+      choices: ['object', 'array'],
+      default: 'object',
+    },
+    {
+      type: 'confirm',
+      name: 'needCombine',
+      message: 'Need combine hook?',
+      default: false,
+    },
+    {
+      type: 'input',
+      name: 'combineName',
+      message: 'Combine hook name (e.g. AppBootstrap):',
+      when: answers => answers.needCombine,
+      validate: v => !!v || 'Combine name is required',
+    },
+    {
+      type: 'checkbox',
+      name: 'methods',
+      message: 'Methods:',
+      choices: ['GET', 'POST', 'PUT'],
+      validate: v => v.length > 0 || 'Select at least one method',
+    },
+  ])
 
-  let combineName = null
-  if (needCombine === 'yes') {
-    combineName = await ask('Combine hook name (e.g. AppBootstrap): ')
+  return {
+    name: answers.name.trim(),
+    shape: answers.shape,
+    needCombine: answers.needCombine ? 'yes' : 'no',
+    combineName: answers.combineName ?? null,
+    methods: answers.methods,
   }
-
-  const methods = (await ask('Methods (GET,POST,PUT): '))
-    .split(',')
-    .map(m => m.trim().toUpperCase())
-
-  rl.close()
-
-  return { name, shape, needCombine, combineName, methods }
 }

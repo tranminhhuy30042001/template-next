@@ -4,8 +4,15 @@ const root = process.cwd()
 
 export function resolvePaths(name) {
   return {
-    apiDir: path.join(root, 'src/app/api', name),
-    hookDir: path.join(root, 'src/hooks'),
-    typeDir: path.join(root, 'src/types'),
+    // API
+    apiDir: path.resolve('src/app/api', name),
+
+    // Types
+    typeDir: path.resolve('src/types'),
+
+    // Hooks
+    hookDir: path.resolve('src/hooks'),
+
+    componentDir: path.resolve('src/components'),
   }
 }
